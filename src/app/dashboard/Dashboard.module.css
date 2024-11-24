@@ -1,0 +1,33 @@
+.dashboardContainer {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+  /* 1 column by default (mobile) */
+}
+
+@media (min-width: 768px) {
+  .dashboardContainer {
+    grid-template-columns: 1fr 1fr;
+    /* 2 columns for larger screens */
+  }
+}
+
+.panel {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.searchContainer {
+  margin-bottom: 16px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}

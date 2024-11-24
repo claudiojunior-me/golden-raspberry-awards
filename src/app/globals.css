@@ -1,14 +1,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #0079d8;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 html,
 body {
@@ -38,5 +39,27 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+.layout {
+  display: flex;
+  height: 100vh;
+  /* Garante que ocupa toda a altura da tela */
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  /* Permite que apenas o conteúdo role */
+  padding: 16px;
+  background-color: var(--background);
+  margin-left: 250px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
   }
 }
