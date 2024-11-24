@@ -1,0 +1,72 @@
+.menuContainer {
+  position: fixed; /* Fixa o menu na lateral */
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%; /* O menu ocupa toda a altura */
+  background-color: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  z-index: 1000;
+  overflow-y: auto; /* Permite que o menu role internamente, se necessário */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.menuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.menuItem a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.menuItem a:hover {
+  color: #f0a500;
+}
+
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background-color: #333;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.active {
+  color: #f0a500;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .menuContainer {
+    left: -250px; /* Esconde o menu em telas pequenas */
+    transition: left 0.3s ease;
+  }
+
+  .menuContainer.open {
+    left: 0; /* Mostra o menu quando aberto */
+  }
+}

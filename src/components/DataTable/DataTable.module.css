@@ -1,0 +1,51 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  table-layout: fixed;
+  /* Add border to the table */
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+  /* Zebra pattern for even rows */
+}
+
+.table tr:nth-child(odd) {
+  background-color: #fff;
+  /* Zebra pattern for odd rows */
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table tfoot td {
+  background-color: #f4f4f4;
+  padding: 0;
+}
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+}
+.filter input, .filter select {
+  padding: 8px;
+  margin: 8px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
