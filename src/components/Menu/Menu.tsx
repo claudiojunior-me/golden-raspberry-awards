@@ -13,12 +13,10 @@ const Menu = () => {
 
   return (
     <>
-      {/* Botão para telas menores */}
       <button className={styles.hamburger} onClick={toggleMenu}>
         ☰
       </button>
 
-      {/* Menu Lateral */}
       <nav data-testid="menu-container" className={`${styles.menuContainer} ${isOpen ? styles.open : ''}`}>
         <div className={styles.logo}>Golden Raspberry</div>
         <ul className={styles.menuList}>
@@ -26,12 +24,11 @@ const Menu = () => {
             <Link href="/">Dashboard</Link>
           </li>
           <li className={styles.menuItem}>
-            <Link href="/movies">Lista de Filmes</Link>
+            <Link href="/movies">List</Link>
           </li>
         </ul>
       </nav>
 
-      {/* Overlay para fechar o menu em telas menores */}
       {isOpen && <div data-testid="overlay" className={styles.overlay} onClick={toggleMenu}></div>}
     </>
   );

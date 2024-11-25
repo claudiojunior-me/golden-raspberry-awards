@@ -45,14 +45,12 @@ a {
 .layout {
   display: flex;
   height: 100vh;
-  /* Garante que ocupa toda a altura da tela */
   overflow: hidden;
 }
 
 .content {
   flex: 1;
   overflow-y: auto;
-  /* Permite que apenas o conteúdo role */
   padding: 16px;
   background-color: var(--background);
   margin-left: 250px;

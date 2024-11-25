@@ -3,7 +3,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './Dashboard.module.css';
 import DataTable from '@/components/DataTable';
-import { fetchYearsWithMultipleWinners, fetchStudiosWithMostWins, fetchProducersIntervals, fetchWinnersByYear } from '@/lib/fetchData';
+import { 
+  fetchYearsWithMultipleWinners, 
+  fetchStudiosWithMostWins, 
+  fetchProducersIntervals, 
+  fetchWinnersByYear 
+} from '@/lib/fetchData';
 import { debounce } from '@/utils/debounce';
 
 export default function Dashboard() {

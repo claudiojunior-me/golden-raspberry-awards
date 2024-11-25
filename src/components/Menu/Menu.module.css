@@ -1,16 +1,16 @@
 .menuContainer {
-  position: fixed; /* Fixa o menu na lateral */
+  position: fixed;
   top: 0;
   left: 0;
   width: 250px;
-  height: 100%; /* O menu ocupa toda a altura */
+  height: 100%;
   background-color: #333;
   color: white;
   display: flex;
   flex-direction: column;
   padding: 16px;
   z-index: 1000;
-  overflow-y: auto; /* Permite que o menu role internamente, se necessário */
+  overflow-y: auto;
 }
 
 .logo {
@@ -62,11 +62,11 @@
   }
 
   .menuContainer {
-    left: -250px; /* Esconde o menu em telas pequenas */
+    left: -250px;
     transition: left 0.3s ease;
   }
 
   .menuContainer.open {
-    left: 0; /* Mostra o menu quando aberto */
+    left: 0;
   }
 }

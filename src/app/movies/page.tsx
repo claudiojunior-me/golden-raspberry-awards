@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import styles from './Movies.module.css';
-import { fetchMovies } from '@/lib/fetchData';
 import DataTable from '@/components/DataTable';
+import { fetchMovies } from '@/lib/fetchData';
 import { Movie } from '@/types/movie';
 
 export default function Movies() {

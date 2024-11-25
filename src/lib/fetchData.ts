@@ -27,10 +27,15 @@ export const fetchWinnersByYear = async (year: string) => {
 export const fetchMovies = async (year: string, page: number, winner?: boolean|null) => {
   const queryParams = new URLSearchParams();
 
-  if (year) queryParams.append('year', year);
+  if (year) {
+    queryParams.append('year', year);
+  }
 
   // verify if winner is a boolean
-  if (winner === true || winner === false) queryParams.append('winner', String(winner));
+  if (winner === true || winner === false) {
+    queryParams.append('winner', String(winner));
+  }
+  
   queryParams.append('page', String(page));
   queryParams.append('size', PAGE_SIZE);
 
