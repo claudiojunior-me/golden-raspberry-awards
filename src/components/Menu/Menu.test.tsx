@@ -19,7 +19,7 @@ describe('Menu', () => {
 
     // Verify the links appear
     expect(screen.getByText(/Dashboard/i)).toBeInTheDocument();
-    expect(screen.getByText(/Lista de Filmes/i)).toBeInTheDocument();
+    expect(screen.getByText(/List/i)).toBeInTheDocument();
   });
 
   test('toggles menu open and close', () => {
