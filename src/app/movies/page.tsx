@@ -61,7 +61,12 @@ export default function Movies() {
           { key: 'id', label: 'ID' },
           { key: 'year', label: 'Year', filterElement: filterByYearElement },
           { key: 'title', label: 'Title' },
-          { key: 'winner', label: 'Winner?', filterElement: filterByWinnerElement },
+          {
+            key: 'winner',
+            label: 'Winner?',
+            filterElement: filterByWinnerElement,
+            formatData: (data: string) => (data === 'true' ? 'Yes' : 'No'),
+          },
         ]}
         data={movies}
         paginationProps={{

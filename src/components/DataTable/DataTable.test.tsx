@@ -119,4 +119,23 @@ describe('DataTable', () => {
     });
   });
 
+  it('renders table with formatted data', () => {
+    const columns: { key: 'name' | 'age'; label: string; formatData?: (data: string) => string }[] = [
+      { key: 'name', label: 'Name', formatData: (data) => data.toUpperCase() },
+      { key: 'age', label: 'Age', formatData: (data) => `Age: ${data}` },
+    ];
+
+    const data = [
+      { name: 'John Doe', age: 28 },
+      { name: 'Jane Smith', age: 34 },
+    ];
+
+    render(<DataTable columns={columns} data={data} />);
+
+    // Verify formatted data
+    expect(screen.getByText(/JOHN DOE/i)).toBeInTheDocument();
+    expect(screen.getByText(/Age: 28/i)).toBeInTheDocument();
+    expect(screen.getByText(/JANE SMITH/i)).toBeInTheDocument();
+    expect(screen.getByText(/Age: 34/i)).toBeInTheDocument();
+  });
 });

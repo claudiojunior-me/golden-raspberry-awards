@@ -7,6 +7,7 @@ type DataTableProps = {
     key: string;
     label: string;
     filterElement?: React.ReactNode;
+    formatData?: (data:string) => string;
   }[];
   data: Record<string, unknown>[];
   paginationProps?: {
@@ -46,7 +47,13 @@ const DataTable = ({
         {data.map((row, index) => (
           <tr key={index}>
             {columns.map((column) => (
-              <td key={column.key as string}>{String(row[column.key])}</td>
+              <td key={column.key as string}>
+                {
+                  column.formatData
+                    ? column.formatData(String(row[column.key]))
+                    : String(row[column.key])
+                }
+              </td>
             ))}
           </tr>
         ))}
