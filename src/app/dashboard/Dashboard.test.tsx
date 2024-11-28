@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import Dashboard from './page';
 import { fetchYearsWithMultipleWinners, fetchStudiosWithMostWins, fetchProducersIntervals, fetchWinnersByYear } from '@/lib/fetchData';
 
@@ -70,12 +70,28 @@ describe('Dashboard', () => {
 
     render(<Dashboard />);
 
-    fireEvent.change(screen.getByPlaceholderText('Digite o ano'), { target: { value: '2020' } });
+    fireEvent.change(screen.getByPlaceholderText('Filter by year'), { target: { value: '2020' } });
 
     await waitFor(() => {
       expect(screen.getByText('List movie winners by year')).toBeInTheDocument();
       expect(screen.getByText('Movie A')).toBeInTheDocument();
       expect(screen.getByText('2020')).toBeInTheDocument();
     });
+  });
+
+  it('not fetch winners by year when year is less than 4 char', async () => {
+    jest.mocked(fetchYearsWithMultipleWinners).mockResolvedValue([]);
+    jest.mocked(fetchStudiosWithMostWins).mockResolvedValue([]);
+    jest.mocked(fetchProducersIntervals).mockResolvedValue({ min: [], max: [] });
+    jest.mocked(fetchWinnersByYear).mockResolvedValue([{ id: 1, year: 2020, title: 'Movie A' }]);
+
+    render(<Dashboard />);
+
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText('Filter by year'), { target: { value: '202' } });
+    });
+
+    expect(screen.getByText('List movie winners by year')).toBeInTheDocument();
+    expect(fetchWinnersByYear).not.toHaveBeenCalled();
   });
 });

@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import React from 'react';
+import React, { act } from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Movies from './page';
 import { fetchMovies } from '@/lib/fetchData';
@@ -15,6 +15,10 @@ const mockMovies = {
 };
 
 describe('Movies', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   beforeEach(() => {
     (fetchMovies as jest.Mock).mockResolvedValue(mockMovies);
   });
@@ -42,5 +46,27 @@ describe('Movies', () => {
     fireEvent.change(winnerSelect, { target: { value: 'true' } });
 
     await waitFor(() => expect(fetchMovies).toHaveBeenCalledWith('', 0, true));
+  });
+
+  it('not search when year is less than 4 characters', async () => {
+    render(<Movies />);
+
+    const yearInput = screen.getByPlaceholderText('Filter by year');
+    await act(async () => {
+      fireEvent.change(yearInput, { target: { value: '20' } });
+    });
+
+    expect(fetchMovies).toHaveBeenCalledTimes(1);
+  });
+
+  it('search when year is equal too 4 characters', async () => {
+    render(<Movies />);
+
+    const yearInput = screen.getByPlaceholderText('Filter by year');
+    await act(async () => {
+      fireEvent.change(yearInput, { target: { value: '2018' } });
+    });
+
+    expect(fetchMovies).toHaveBeenCalledTimes(2);
   });
 });

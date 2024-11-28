@@ -7,6 +7,7 @@ import { fetchMovies } from '@/lib/fetchData';
 import { Movie } from '@/types/movie';
 
 export default function Movies() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [year, setYear] = useState('');
   const [winner, setWinner] = useState<boolean | null>(false);
@@ -16,23 +17,34 @@ export default function Movies() {
   const [prevWinner, setPrevWinner] = useState<boolean | null>(false);
 
   const getMovies = async () => {
-    if (year !== prevYear || winner !== prevWinner) {
-      setPage(0);
-    }
+    try {
+      setIsLoading(true);
 
-    const data = await fetchMovies(year, page, winner);
-    setMovies(data.content);
-    setTotalPages(data.totalPages);
-    setPrevYear(year);
-    setPrevWinner(winner);
+      if (year !== prevYear || winner !== prevWinner) {
+        setPage(0);
+      }
+
+      const data = await fetchMovies(year, page, winner);
+      setMovies(data.content);
+      setTotalPages(data.totalPages);
+      setPrevYear(year);
+      setPrevWinner(winner);
+    } finally {
+      setIsLoading(false)
+    }
   };
 
   useEffect(() => {
+    if (year.length > 0 && year.length < 4) {
+      return;
+    }
+
     getMovies();
   }, [year, winner, page]);
 
   const filterByYearElement = (
     <input
+      disabled={isLoading}
       type="number"
       placeholder='Filter by year'
       value={year}
@@ -42,6 +54,7 @@ export default function Movies() {
 
   const filterByWinnerElement = (
     <select
+      disabled={isLoading}
       value={String(winner)}
       onChange={(e) => setWinner(e.target.value === 'true' ? true : e.target.value === 'false' ? false : null)}
       className={styles.filterSelect}

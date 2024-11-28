@@ -3,15 +3,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './Dashboard.module.css';
 import DataTable from '@/components/DataTable';
-import { 
-  fetchYearsWithMultipleWinners, 
-  fetchStudiosWithMostWins, 
-  fetchProducersIntervals, 
-  fetchWinnersByYear 
+import {
+  fetchYearsWithMultipleWinners,
+  fetchStudiosWithMostWins,
+  fetchProducersIntervals,
+  fetchWinnersByYear
 } from '@/lib/fetchData';
 import { debounce } from '@/utils/debounce';
 
 export default function Dashboard() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [yearsWithMultipleWinners, setYearsWithMultipleWinners] = useState([]);
   const [studiosWithMostWins, setStudiosWithMostWins] = useState([]);
   const [producersIntervals, setProducersIntervals] = useState({ min: [], max: [] });
@@ -31,18 +32,27 @@ export default function Dashboard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchWinners = useCallback(
     debounce(async (year: string) => {
-      setWinnersByYear(await fetchWinnersByYear(year));
+      try {
+        setIsLoading(true);
+        setWinnersByYear(await fetchWinnersByYear(year));
+      } finally {
+        setIsLoading(false);
+      }
     }, 300),
     []
   );
 
   useEffect(() => {
-    if (searchYear) {
+    if (searchYear?.length === 4) {
       fetchWinners(searchYear);
     }
   }, [searchYear, fetchWinners]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (Number(e.target.value) > new Date().getFullYear()) {
+      return;
+    }
+
     setSearchYear(e.target.value);
   };
 
@@ -100,8 +110,9 @@ export default function Dashboard() {
         <h2>List movie winners by year</h2>
         <div className={styles.searchContainer}>
           <input
+            disabled={isLoading}
             type="number"
-            placeholder="Digite o ano"
+            placeholder="Filter by year"
             value={searchYear}
             onChange={handleSearchChange}
             className={styles.input}
