@@ -11,7 +11,7 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx)$': [
       'ts-jest',
       {
-        tsconfig: 'tsconfig.json',
+        tsconfig: 'tsconfig.test.json',
       }
     ]
   },

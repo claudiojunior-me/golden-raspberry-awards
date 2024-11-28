@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
-import React, { act } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React from 'react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import Movies from './page';
 import { fetchMovies } from '@/lib/fetchData';
 
